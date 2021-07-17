@@ -51,10 +51,17 @@
 
 				<div class="profile-menu">
 				<?php if (isset($menu_booking)) echo form_button($menu_booking);
+				if($worker['booking_status_id'] != 4 ){
 					echo form_button(['type' => 'button',
 					'class' => 'btn btn-outline-secondary btn-download-profile rounded-0',
 					'content' => '<i class="fa fa-download">&nbsp;</i> ' . $this->lang->line('front')['page_worker']['button']['download_data'],
-					'data-worker' => base64url_encode($worker['id'])]); ?>
+					'data-worker' => base64url_encode($worker['id'])]);
+				}elseif ($worker['booking_status_id'] == 4 && $worker['booking_user_id'] != $_SESSION['AuthUser']['id']){
+					echo form_button(['type' => 'button',
+							'class' => 'btn btn-outline-secondary btn-download-profile rounded-0 disable',
+							'content' => '<i class="fa fa-download">&nbsp;</i> ' . $this->lang->line('front')['page_worker']['button']['download_data'],
+							'data-worker' => base64url_encode($worker['id'])]);
+				} ?>
 				</div>
 
 				<!-- <div class="profile-menu">
